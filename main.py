@@ -1,12 +1,22 @@
-from langchain_openai import OpenAI
-from dotenv import load_dotenv
+import langchain_helper as lch
+import streamlit as st
 
-load_dotenv()
+st.title("Animal Names")
 
-def generate_bike_name():
-    llm = OpenAI(temperature=1) # Temp refers to creativity levels
-    name = llm.invoke("Suggest me 5 names for my horse")
-    return name
+User_Animal_type = st.sidebar.selectbox("What is your pet ? ",  ("Cow", "Cat", "Horse", "Fish"))
 
-if __name__ == "__main__":
-    print(generate_bike_name())
+if User_Animal_type =="Cow":
+    Animal_colour = st.sidebar.text_area(label = "What colour is your cow ?", max_chars=10)
+
+if User_Animal_type =="Cat":
+    Animal_colour = st.sidebar.text_area(label = "What colour is your cat ?", max_chars=10)
+
+if User_Animal_type =="Horse":
+    Animal_colour = st.sidebar.text_area(label = "What colour is your Horse ?", max_chars=10)
+
+if User_Animal_type =="Fish":
+    Animal_colour = st.sidebar.text_area(label = "What colour is your Fish ?", max_chars=10)
+
+if Animal_colour:
+    response = lch.generate_bike_name(User_Animal_type, Animal_colour)
+    st.text(response["Animal_names"])
